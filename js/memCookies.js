@@ -104,10 +104,14 @@ function saveTopicPreference(topicIndex) {
         return;
     }
 
-    if (deckArray[topicIndex].active) {
-        setCookie(deckArray[topicIndex].labels[0], 1);
-    } else {
-        setCookie(deckArray[topicIndex].labels[0], 0);
+    var settingName = deckArray[topicIndex].labels.aText;
+    if (settingName && settingName.length > 0) {
+        // Save the topic preference if it is valid.
+        if (deckArray[topicIndex].active) {
+            setCookie(settingName, 1);
+        } else {
+            setCookie(settingName, 0);
+        }
     }
 }
 
