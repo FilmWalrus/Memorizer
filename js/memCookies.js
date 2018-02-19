@@ -122,6 +122,8 @@ function saveTopicPreferences() {
 }
 
 function loadTopicPreferences() {
+    
+    alert("Hello");
 
     for (var i = 0; i < deckArray.length; i++) {
         var settingName = deckArray[i].labels.aText;
