@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Memorizer</title>
+    <link href="css/default.css" rel="stylesheet" />
+</head>
+<body onload="MemorizerSetup();">
+    <script src="js/main.js"></script>
+
+    <form>
+
+        <!-- Options Labels width="500" -->
+        <table cellpadding="3">
+            <tr><td>Category:</td><td>Count:</td><td>Letter:</td><td>Difficulty:</td><td>Hint Style:</td></tr>
+
+            <!-- Topics Dropdown -->
+            <tr>
+                <td align="left">
+                    <select id="topic_dropdown" style="width:200;" onchange="NewRound()"></select>
+                </td>
+
+
+                <!-- Count Dropdown -->
+                <td align="left">
+                    <select id="count_dropdown" style="width:60;" onchange="NewRound()">
+                        <option value=1> 1</option>
+                        <option value=5> 5</option>
+                        <option value=10> 10</option>
+                        <option value=0> All</option>
+                        <option value=-1> 1 Set</option>
+                        <option value=-2> 2 Sets</option>
+                        <option value=-3> 3 Sets</option>
+                        <option value=-4> 4 Sets</option>
+                        <option value=-5> 5 Sets</option>
+                        <option value=-6> 6 Sets</option>
+                        <option value=-7> 7 Sets</option>
+                        <option value=-8> 8 Sets</option>
+                    </select>
+                </td>
+
+                <!-- Letter Dropdown -->
+                <td align="left">
+                    <input id="letter_option" type="text" value="" style="width:60;" onchange="NewRound()" onkeypress="return NoEnter()" />
+                </td>
+
+                <!-- Difficulty Dropdown -->
+                <td align="left">
+                    <select id="difficulty_dropdown" style="width:60;" onchange="NewRound()">
+                        <option value=0> Easy</option>
+                        <option value=1> Medium</option>
+                        <option value=2> Hard</option>
+                    </select>
+                </td>
+
+                <!-- Hint Mode Dropdown -->
+                <td align="left">
+                    <select id="hint_dropdown" style="width:120;">
+                        <option value=0> Letter - Ordered</option>
+                        <option value=1> Letter - Random</option>
+                        <option value=2> Clue - Ordered</option>
+                        <option value=3> Clue - Random</option>
+                        <option value=4> Either - Ordered</option>
+                        <option value=5> Either - Random</option>
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+
+                <!-- Input Answers -->
+                <td>
+                    <input name="answer_input" type="text" value="" style="width:200;" oninput="CheckAnswerWix(event)" onpropertychange="CheckAnswerYaldex()" onchange="CheckAnswerYaldex()" onkeypress="return NoEnter()" />
+                    <!-- <input name="answer_input" type="text" style="width:120;" onclick="CheckAnswer()" />  OnInput (event) -->
+                </td>
+
+
+                <!-- Buttons -->
+                <td>
+                    <input name="show_hint" type="Button" value="Hint" style="width:60;" onclick="NewHint()" />
+                </td>
+                <td>
+                    <input name="draw_cards" type="Button" value="New" style="width:60;" onclick="NewRound()" />
+                </td>
+                <td>
+                    <p id="Combo">Combo: 0</p>
+                </td>
+            </tr>
+        </table>
+
+        <p id="display_area">Clue(s): </p><br />
+
+        <p id="demo"></p>
+
+    </form>
+</body>
+</html>
