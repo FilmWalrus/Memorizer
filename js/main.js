@@ -8,6 +8,9 @@ var newRoundIndexArray;
 
 function NewRoundReroll(reroll) {
 
+    // Save the current settings
+    saveSettings();
+
     answerArray.length = 0; // Reset answer array
 
     // Get the selected category
@@ -44,7 +47,7 @@ function NewRoundReroll(reroll) {
     } else if (countMode < 0) {
         // Use cards from multiple random categories
         topicCount = -countMode;
-        if (reroll || !newRoundIndexArray || newRoundIndexArray.length != topicCount) {
+        if (reroll || !newRoundIndexArray) { // || newRoundIndexArray.length != topicCount
             newRoundIndexArray = getRandomizedIndexArray(deckArray.length);
         }
     }
@@ -52,7 +55,7 @@ function NewRoundReroll(reroll) {
 
 
     // Loop through topics in this round
-    for (i = 0; i < deckArray.length; i++) {
+    for (i = 0; i < newRoundIndexArray.length; i++) {
         var currentTopic = newRoundIndexArray[i];
 
         // Reset data
@@ -160,6 +163,8 @@ function TopicChange() {
         var topicIndex = topicDropdown.options[topicDropdown.selectedIndex].value;
         if (topicIndex >= 0) {
             deckArray[topicIndex].active = !deckArray[topicIndex].active;
+
+            saveTopicPreference(topicIndex);
         }
     }
 
@@ -180,8 +185,6 @@ function CountChange() {
         var topicDropdown = document.getElementById("topic_dropdown");
         topicDropdown.selectedIndex = 0;
     }
-
-    saveSettings();
 
     TopicChange();
 }

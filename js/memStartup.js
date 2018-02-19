@@ -94,8 +94,6 @@ function MemorizerSetup() {
 
     // Get the dropdowns
     var topicDropdown = document.getElementById("topic_dropdown");
-    var countDropdown = document.getElementById("count_dropdown");
-    var hintDropdown = document.getElementById("hint_dropdown");
 
     // Fill the topic dropdown
     for (var i = 0; i < deckArray.length; i++) {
@@ -105,23 +103,7 @@ function MemorizerSetup() {
         topicDropdown.appendChild(option);
     }
 
-    // Set the defaults (category, count, etc.)
-    for (var i = 0; i < topicDropdown.options.length; i++) {
-        if (topicDropdown.options[i].text == "Countries") {
-            topicDropdown.options[i].selected = true;
-        }
-    }
-    //for (var i = 0; i < countDropdown.options.length; i++) {
-    //    if (countDropdown.options[i].text.localeCompare("3 Sets") == 0) {
-    //        countDropdown.options[i].selected = true;
-    //    }
-    //}
-    for (var i = 0; i < hintDropdown.options.length; i++) {
-        if (hintDropdown.options[i].text.localeCompare("Clue-Random") == 0) {
-            hintDropdown.options[i].selected = true;
-        }
-    }
-
+    // Load the settings from a cookie.
     loadSettings();
 
     // Trigger the first round
