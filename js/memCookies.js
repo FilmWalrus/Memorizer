@@ -2,7 +2,7 @@
     document.cookie = cname + "=" + cvalue + ";";
 }
 
-function getCookieText(cname) {
+function getCookieText(cname, defaultValue) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -15,10 +15,10 @@ function getCookieText(cname) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return defaultValue;
 }
 
-function getCookieNumeric(cname) {
+function getCookieNumeric(cname, defaultValue) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -31,28 +31,107 @@ function getCookieNumeric(cname) {
             return parseInt(c.substring(name.length, c.length));
         }
     }
-    return 0;
+    return defaultValue;
 }
 
-function saveSettings() {
-
-    var countDropdown = document.getElementById("count_dropdown");
-    var countMode = countDropdown.options[countDropdown.selectedIndex].value;
-
-    setCookie("CountMode", countMode);
+function saveDropdownSettings(dropdownName, settingName) {
+    var dropdown = document.getElementById(dropdownName);
+    var settingValue = dropdown.options[dropdown.selectedIndex].value;
+    setCookie(settingName, settingValue);
 }
 
-function loadSettings() {
+function loadDropdownSettings(dropdownName, settingName, defaultValue) {
 
-    var countMode = getCookieNumeric("CountMode");
+    var settingValue = getCookieNumeric(settingName, defaultValue);
 
-    var countDropdown = document.getElementById("count_dropdown");
-    for (var i = 0; i < countDropdown.options.length; i++) {
-        if (countDropdown.options[i].value == countMode) {
-            countDropdown.options[i].selected = true;
+    var dropdown = document.getElementById(dropdownName);
+    for (var i = 0; i < dropdown.options.length; i++) {
+        if (dropdown.options[i].value == settingValue) {
+            dropdown.options[i].selected = true;
             break;
         }
     }
 
+}
 
+function saveSettings() {
+
+    // Save settings
+
+    // Topic
+    saveDropdownSettings("topic_dropdown", "TopicMode");
+
+    // Count mode
+    saveDropdownSettings("count_dropdown", "CountMode");
+
+    // Letter
+    var letterTextbox = document.getElementById("letter_option");
+    var letterInput = letterTextbox.value;
+    setCookie("TextFilter", letterInput);
+
+    // Difficulty
+    saveDropdownSettings("difficulty_dropdown", "Difficulty");
+
+    // Hint Style
+    saveDropdownSettings("hint_dropdown", "HintMode");
+
+    // Topic preferences
+    // Call these manually.
+}
+
+
+
+
+
+function loadSettings() {
+
+    // Load settings
+    loadDropdownSettings("topic_dropdown", "TopicMode", 0);
+    loadDropdownSettings("count_dropdown", "CountMode", -5);
+    loadDropdownSettings("difficulty_dropdown", "Difficulty", 0);
+    loadDropdownSettings("hint_dropdown", "HintMode", 5);
+
+    var textFilter = getCookieText("TextFilter", "");
+    var letterTextbox = document.getElementById("letter_option");
+    letterTextbox.value = textFilter;
+
+    // Load topic preferences
+    loadTopicPreferences();
+}
+
+function saveTopicPreference(topicIndex) {
+    if (topicIndex < 0 || topicIndex >= deckArray.length) {
+        return;
+    }
+
+    if (deckArray[topicIndex].active) {
+        setCookie(deckArray[topicIndex].labels[0], 1);
+    } else {
+        setCookie(deckArray[topicIndex].labels[0], 0);
+    }
+}
+
+function saveTopicPreferences() {
+
+    var topicDropdown = document.getElementById("topic_dropdown");
+    for (var i = 0; i < topicDropdown.options.length; i++) {
+        var topicIndex = topicDropdown.options[i].value;
+        saveTopicPreference(topicIndex);
+    }
+}
+
+function loadTopicPreferences() {
+
+    var topicDropdown = document.getElementById("topic_dropdown");
+    for (var i = 0; i < topicDropdown.options.length; i++) {
+        var topicIndex = topicDropdown.options[i].value;
+        if (topicIndex >= 0) {
+            var topicState = getCookieNumeric(deckArray[topicIndex].labels[0], -1);
+            if (topicState < 0) {
+                topicState = 1; // Default topics to on
+            }
+
+            deckArray[topicIndex].active = (topicState == 1);
+        }
+    }
 }
