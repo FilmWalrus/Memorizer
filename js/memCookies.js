@@ -130,12 +130,17 @@ function loadTopicPreferences() {
     for (var i = 0; i < topicDropdown.options.length; i++) {
         var topicIndex = topicDropdown.options[i].value;
         if (topicIndex >= 0) {
-            var topicState = getCookieNumeric(deckArray[topicIndex].labels[0], -1);
-            if (topicState < 0) {
-                topicState = 1; // Default topics to on
-            }
+            var settingName = deckArray[topicIndex].labels.aText;
 
-            deckArray[topicIndex].active = (topicState == 1);
+            // If this is a valid topic name, attempt to load the user's preference for it.
+            if (settingName && settingName.length > 0) {
+                var topicState = getCookieNumeric(deckArray[topicIndex].labels[0], -1);
+                if (topicState < 0) {
+                    topicState = 1; // Default topics to on
+                }
+
+                deckArray[topicIndex].active = (topicState == 1);
+            }
         }
     }
 }
