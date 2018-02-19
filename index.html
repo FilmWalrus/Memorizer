@@ -4,94 +4,110 @@
     <meta charset="utf-8" />
     <title>Memorizer</title>
     <link href="css/default.css" rel="stylesheet" />
+
+    <style type="text/css">
+        input, select {
+            width: 200px;
+            border: 1px solid #000;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /*input {
+            text-indent: 4px;
+        }*/
+    </style>
 </head>
 <body onload="MemorizerSetup();">
+    <script src="js/memObjects.js"></script>
+    <script src="js/memUtils.js"></script>
+    <script src="js/memCookies.js"></script>
+    <script src="js/memStartup.js"></script>
     <script src="js/main.js"></script>
 
-    <form>
+    <table cellpadding="3">
+        <!-- Top level labels -->
+        <tr><td>Topic:</td><td>Count:</td><td>Letter:</td><td>Difficulty:</td><td>Hint Style:</td></tr>
 
-        <!-- Options Labels width="500" -->
-        <table cellpadding="3">
-            <tr><td>Category:</td><td>Count:</td><td>Letter:</td><td>Difficulty:</td><td>Hint Style:</td></tr>
-
+        <tr>
             <!-- Topics Dropdown -->
-            <tr>
-                <td align="left">
-                    <select id="topic_dropdown" style="width:200;" onchange="NewRound()"></select>
-                </td>
+            <td align="left">
+                <select id="topic_dropdown" style="width:200px" onchange="TopicChange()">
+                    <option value=-1>Select Topic</option>
+                </select>
+            </td>
 
 
-                <!-- Count Dropdown -->
-                <td align="left">
-                    <select id="count_dropdown" style="width:60;" onchange="NewRound()">
-                        <option value=1> 1</option>
-                        <option value=5> 5</option>
-                        <option value=10> 10</option>
-                        <option value=0> All</option>
-                        <option value=-1> 1 Set</option>
-                        <option value=-2> 2 Sets</option>
-                        <option value=-3> 3 Sets</option>
-                        <option value=-4> 4 Sets</option>
-                        <option value=-5> 5 Sets</option>
-                        <option value=-6> 6 Sets</option>
-                        <option value=-7> 7 Sets</option>
-                        <option value=-8> 8 Sets</option>
-                    </select>
-                </td>
+            <!-- Count Dropdown -->
+            <td align="left">
+                <select id="count_dropdown" style="width:60px" onchange="CountChange()">
+                    <option value=1> 1</option>
+                    <option value=5> 5</option>
+                    <option value=10> 10</option>
+                    <option value=0> All</option>
+                    <option value=-1> 1 Set</option>
+                    <option value=-2> 2 Sets</option>
+                    <option value=-3> 3 Sets</option>
+                    <option value=-4> 4 Sets</option>
+                    <option value=-5> 5 Sets</option>
+                    <option value=-6> 6 Sets</option>
+                    <option value=-7> 7 Sets</option>
+                    <option value=-8> 8 Sets</option>
+                </select>
+            </td>
 
-                <!-- Letter Dropdown -->
-                <td align="left">
-                    <input id="letter_option" type="text" value="" style="width:60;" onchange="NewRound()" onkeypress="return NoEnter()" />
-                </td>
+            <!-- Letter Textbox -->
+            <td align="left">
+                <input id="letter_option" type="text" value="" style="width:60px" onchange="NewRound()" onkeypress="return NoEnter()" />
+            </td>
 
-                <!-- Difficulty Dropdown -->
-                <td align="left">
-                    <select id="difficulty_dropdown" style="width:60;" onchange="NewRound()">
-                        <option value=0> Easy</option>
-                        <option value=1> Medium</option>
-                        <option value=2> Hard</option>
-                    </select>
-                </td>
+            <!-- Difficulty Dropdown -->
+            <td align="left">
+                <select id="difficulty_dropdown" style="width:60px" onchange="NewRound()">
+                    <option value=0> Easy</option>
+                    <option value=1> Medium</option>
+                    <option value=2> Hard</option>
+                </select>
+            </td>
 
-                <!-- Hint Mode Dropdown -->
-                <td align="left">
-                    <select id="hint_dropdown" style="width:120;">
-                        <option value=0> Letter - Ordered</option>
-                        <option value=1> Letter - Random</option>
-                        <option value=2> Clue - Ordered</option>
-                        <option value=3> Clue - Random</option>
-                        <option value=4> Either - Ordered</option>
-                        <option value=5> Either - Random</option>
-                    </select>
-                </td>
+            <!-- Hint Mode Dropdown -->
+            <td align="left">
+                <select id="hint_dropdown" style="width:120px" onchange="ResetCursor()">
+                    <option value=0> Letter - Ordered</option>
+                    <option value=1> Letter - Random</option>
+                    <option value=2> Clue - Ordered</option>
+                    <option value=3> Clue - Random</option>
+                    <option value=4> Either - Ordered</option>
+                    <option value=5> Either - Random</option>
+                </select>
+            </td>
 
-            </tr>
-            <tr>
+        </tr>
+        <tr>
 
-                <!-- Input Answers -->
-                <td>
-                    <input name="answer_input" type="text" value="" style="width:200;" oninput="CheckAnswerWix(event)" onpropertychange="CheckAnswerYaldex()" onchange="CheckAnswerYaldex()" onkeypress="return NoEnter()" />
-                    <!-- <input name="answer_input" type="text" style="width:120;" onclick="CheckAnswer()" />  OnInput (event) -->
-                </td>
+            <!-- Input Answers -->
+            <td>
+                <input id="answer_input" type="text" value="" style="width:200px" oninput="CheckAnswer()" onkeypress="return NoEnter()" />
+                <!-- oninput="CheckAnswerWix(event)" onpropertychange="CheckAnswerYaldex()" onchange="CheckAnswerYaldex()" -->
+            </td>
 
 
-                <!-- Buttons -->
-                <td>
-                    <input name="show_hint" type="Button" value="Hint" style="width:60;" onclick="NewHint()" />
-                </td>
-                <td>
-                    <input name="draw_cards" type="Button" value="New" style="width:60;" onclick="NewRound()" />
-                </td>
-                <td>
-                    <p id="Combo">Combo: 0</p>
-                </td>
-            </tr>
-        </table>
+            <!-- Buttons -->
+            <td>
+                <input name="show_hint" type="Button" value="Hint" style="width:60px" onclick="NewHint()" />
+            </td>
+            <td>
+                <input name="draw_cards" type="Button" value="New" style="width:60px" onclick="NewRound()" />
+            </td>
+            <td>
+                <p id="Combo">Combo: 0</p>
+            </td>
+        </tr>
+    </table>
 
-        <p id="display_area">Clue(s): </p><br />
+    <p id="display_area">Clue(s): </p><br />
 
-        <p id="demo"></p>
-
-    </form>
+    <p id="demo"></p>
 </body>
 </html>
