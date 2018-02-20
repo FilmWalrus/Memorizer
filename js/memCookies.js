@@ -131,8 +131,6 @@ function loadTopicPreferences() {
         if (settingName && settingName.length > 0) {
             var topicState = getCookieNumeric(settingName, -1);
 
-            alert("Topic: " + settingName + " Value: " + topicState);
-
             if (topicState < 0) {
                 topicState = 1; // Default topics to on
             }
