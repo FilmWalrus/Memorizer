@@ -130,7 +130,7 @@ function loadTopicPreferences() {
         // If this is a valid topic name, attempt to load the user's preference for it.
         if (settingName && settingName.length > 0) {
             var topicState = getCookieNumeric(settingName, -1);
-            
+
             if (topicState < 0) {
                 topicState = 1; // Default topics to on
             }

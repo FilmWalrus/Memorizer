@@ -69,6 +69,7 @@
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
     <Content Include="js\memCookies.js" />
+    <Content Include="js\memHints.js" />
     <Content Include="js\memObjects.js" />
     <Content Include="js\memStartup.js" />
     <Content Include="js\memUtils.js" />
