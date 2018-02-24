@@ -202,11 +202,30 @@ function UpdateDisplay() {
         }
     }
 
-    var displayText = "<table>";
+    var w = window,
+        d = document,
+        e = d.documentElement,
+        g = d.getElementsByTagName('body')[0],
+        x = w.innerWidth || e.clientWidth || g.clientWidth,
+        y = w.innerHeight || e.clientHeight || g.clientHeight;
+    var mainHeadHeight = document.getElementById('mainSettings').offsetHeight;
+    var tableHeight = y - mainHeadHeight - 50;
+    var tableStyle = "<table style=\"";
+    tableStyle = tableStyle + "display: block;";
+    tableStyle = tableStyle + "max-height: " + tableHeight + "px;";
+    //tableStyle = tableStyle + "max-width: " + x + "px;";
+    tableStyle = tableStyle + "overflow-y:scroll"
+    //tableStyle = tableStyle + "overflow-x:scroll"
+    tableStyle = tableStyle + "\">";
+
+    //document.getElementById("demo").innerHTML = "Debug Msg: " + mainHeadHeight;
+
+    var displayText = tableStyle;
 
     ////////////////////////
     // Display the labels //
     ////////////////////////
+    displayText = displayText + "<thead>";
     displayText = displayText + "<tr>";
     for (var j = 0; j < answerArray.length; j++) {
         // Topic label
@@ -231,12 +250,16 @@ function UpdateDisplay() {
         displayText = displayText + "</td>";
     }
     displayText = displayText + "</tr>";
+    displayText = displayText + "</thead>";
 
     ///////////////////////
     // Display the clues //
     ///////////////////////
 
+   
+
     // Loop through the rows (items in categories)
+    displayText = displayText + "<tbody>";
     for (var k = 0; k < longest_category; k++) {
         displayText = displayText + "<tr>";
 
@@ -273,6 +296,7 @@ function UpdateDisplay() {
         }
         displayText = displayText + "</tr>";
     }
+    displayText = displayText + "</tbody>";
     displayText = displayText + "</table>";
 
     //var full_text = "Clue(s):<br />" + displayText;
