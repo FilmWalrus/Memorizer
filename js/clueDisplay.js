@@ -127,3 +127,11 @@
 
     //alert ("Exit Update Display");
 }
+
+function UpdateCombo() {
+    document.getElementById("Combo").innerHTML = "Combo: " + comboScore;
+}
+
+function UpdateRemainder(rightAnswers, totalAnswers) {
+    document.getElementById("answers_remaining").innerHTML = rightAnswers + " of " + totalAnswers;
+}
