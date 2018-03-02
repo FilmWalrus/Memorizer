@@ -55,6 +55,7 @@ function NewRoundReroll(reroll) {
 
 
     // Loop through topics in this round
+    var answerCount = 0;
     for (i = 0; i < newRoundIndexArray.length; i++) {
         var currentTopic = newRoundIndexArray[i];
 
@@ -116,6 +117,7 @@ function NewRoundReroll(reroll) {
         // Only add this new answer deck if there was at least one item added to it
         if (newDeck.iList.length > 0) {
             answerArray.push(newDeck);
+            answerCount = answerCount + newDeck.iList.length;
         }
 
         // If we've added the correct number of categories, we can quit.
@@ -138,6 +140,7 @@ function NewRoundReroll(reroll) {
         NewHint();  // Easy also gets a free hint, unless it they already got a built-in one.
     }
 
+    UpdateRemainder(0, answerCount);
 
     UpdateDisplay();
 
@@ -202,6 +205,8 @@ function CheckAnswer() {
     var userText = textObj.value;
 
     //document.getElementById("demo").innerHTML = "Debug Msg: " + debug_text;
+    var countRight = 0;
+    var countTotal = 0;
 
     var updateNeeded = false;
     for (var k = 0; k < answerArray.length; k++) {
@@ -227,7 +232,13 @@ function CheckAnswer() {
                     }
                 }
             }
+
+            if (answerArray[k].iList[j].solved) {
+                countRight++;
+            }
         }
+
+        countTotal = countTotal + answerArray[k].iList.length;
     }
 
     if (updateNeeded) {
@@ -239,6 +250,9 @@ function CheckAnswer() {
         // Up the combo score
         comboScore++;
         UpdateCombo();
+
+        // Update the # correct of # total
+        UpdateRemainder(countRight, countTotal);
 
         // Update the display
         UpdateDisplay();
@@ -277,7 +291,22 @@ function CheckComplete() {
     }
 }
 
-function UpdateCombo() {
-    document.getElementById("Combo").innerHTML = "Combo: " + comboScore;
+function SolveAll() {
+
+    // Loop through the topics in this round
+    for (var k = 0; k < answerArray.length; k++) {
+
+        // Loop through the items in this topic and set them all to solved
+        var missingItem = 0;
+        for (var j = 0; j < answerArray[k].iList.length; j++) {
+            answerArray[k].iList[j].dText = answerArray[k].iList[j].aText.split("|")[0];
+            answerArray[k].iList[j].solved = true;
+        }
+    }
+
+    UpdateDisplay();
 }
+
+
+
 
