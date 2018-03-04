@@ -24,11 +24,11 @@
         x = w.innerWidth || e.clientWidth || g.clientWidth,
         y = w.innerHeight || e.clientHeight || g.clientHeight;
     var mainHeadHeight = document.getElementById('mainSettings').offsetHeight;
-    var tableHeight = y - mainHeadHeight - 50;
-    var tableStyle = "<table id=\"clueTable\" style=\"";
+    var tableHeight = y - mainHeadHeight - 45;
+    var tableStyle = "<table id=\"clueTable\" class=\"clue-table\" style=\"";
     tableStyle = tableStyle + "display: block;";
     tableStyle = tableStyle + "max-height: " + tableHeight + "px;";
-    tableStyle = tableStyle + "overflow-y:scroll"
+    //tableStyle = tableStyle + "overflow-y:scroll"
     //tableStyle = tableStyle + "max-width: " + x + "px;";
     //tableStyle = tableStyle + "overflow-x:scroll"
     tableStyle = tableStyle + "\">";
@@ -42,15 +42,14 @@
     ////////////////////////
     // Display the labels //
     ////////////////////////
-    displayText = displayText + "<thead>";
     displayText = displayText + "<tr>";
     for (var j = 0; j < answerArray.length; j++) {
         // Topic label
-        displayText = displayText + "<td>";
+        displayText = displayText + "<th>";
 
         var labelItem = answerArray[j].labels;
         //document.getElementById("demo").innerHTML = "Debug Msg: " + debug_text;
-        displayText = displayText + labelItem.aText.fontcolor("red");
+        displayText = displayText + labelItem.aText.fontcolor("white");
 
 
         // Clue labels
@@ -61,13 +60,12 @@
                     clueArray.push(labelItem.clues[i].cText);
                 }
             }
-            displayText = displayText + CreateParenthetical(clueArray).fontcolor("red");
+            displayText = displayText + CreateParenthetical(clueArray).fontcolor("white");
         }
 
-        displayText = displayText + "</td>";
+        displayText = displayText + "</th>";
     }
     displayText = displayText + "</tr>";
-    displayText = displayText + "</thead>";
 
     ///////////////////////
     // Display the clues //
@@ -129,9 +127,12 @@
 }
 
 function UpdateCombo() {
+    // Update the display for the player's current combo
+    // The combo is the number of answers right in a row without taking a hint
     document.getElementById("Combo").innerHTML = "Combo: " + comboScore;
 }
 
 function UpdateRemainder(rightAnswers, totalAnswers) {
+    // Update the display for the number of answers right out of the number of answers total
     document.getElementById("answers_remaining").innerHTML = rightAnswers + " of " + totalAnswers;
 }
