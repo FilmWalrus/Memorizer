@@ -14,7 +14,7 @@
 
 .modal-header {
     text-align: center;
-    /*padding: 2px 16px;*/
+    padding: 4px;
     background-color: #141e5d;
     color: white;
 }
@@ -72,6 +72,9 @@
 
 .clue-table {
     font-family: Myriad, Helvetica, Arial, sans-serif;
+    border-collapse: collapse;
+    /*border-bottom: 4px solid #141e5d;*/
+    /*border: 1px solid black;*/
 }
 
     .clue-table tr:nth-child(even) {
@@ -86,13 +89,24 @@
 
     .clue-table th {
         background-color: #141e5d;
+        border-left: 4px solid #141e5d;
+        border-right: 4px solid #141e5d;
         color: white;
         padding: 4px;
     }
 
-.clue-table td {
-    font-size: 14px;
-}
+    /*.clue-table tfoot {
+        background-color: #141e5d;
+        border-bottom: 4px solid #141e5d;
+    }*/
+
+    .clue-table td {
+        font-size: 14px;
+        border-left: 4px solid #141e5d;
+        border-right: 4px solid #141e5d;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
 
     .clue-table td:hover {
         background-color: #bca1f7;
@@ -171,4 +185,52 @@
 
 
 
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+}
+
+    .switch input {
+        display: none;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background-color: indianred;/*#ccc;*/
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        border-radius: 50%;
+        background-color: white;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: palegreen; /*#2196F3;*/
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(40px);
+    /*background-color: black;*/
+}
 

@@ -81,10 +81,7 @@
         // Loop through the columns (categories)
         for (var j = 0; j < answerArray.length; j++) {
 
-            
-
             var clueClass = 0;
-
             var clueText = "";
 
             if (k < answerArray[j].iList.length) {
@@ -116,19 +113,31 @@
                 }
             }
 
-            if (clueClass == 0) { // Not yet solved
+            if (clueClass == 0) {
+                // Not yet solved
                 displayText = displayText + "<td>";
-            } else if (clueClass == 1) { // Solved through hard work (show as green)
-                displayText = displayText + "<td style=\"background: #98FB98;\">";
-            } else if (clueClass == 2) { // Solved through hints (show as red)
-                displayText = displayText + "<td style=\"background: #CD5C5C; color: white;\">";
+            } else if (clueClass == 1) {
+                // Solved through hard work (show as green)
+                if (k % 2 == 0) {
+                    displayText = displayText + "<td style=\"background: #98FB98;\">";
+                } else {
+                    displayText = displayText + "<td style=\"background: #66CDAA;\">";
+                }
+            } else if (clueClass == 2) {
+                // Solved through hints (show as red)
+                if (k % 2 == 0) {
+                    displayText = displayText + "<td style=\"background: #CD5C5C; color: white;\">";
+                } else {
+                    displayText = displayText + "<td style=\"background: #B22222; color: white;\">";
+                }
+                
             }
 
             displayText = displayText + clueText + "</td>";
         }
         displayText = displayText + "</tr>";
     }
-    displayText = displayText + "</tbody>";
+    displayText = displayText + "</tbody> <tfoot> </tfoot>";
     displayText = displayText + "</table>";
 
     //var full_text = "Clue(s):<br />" + displayText;

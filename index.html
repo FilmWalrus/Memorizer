@@ -92,8 +92,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <!--<span class="close">&times;</span>-->
-            <h2>Game Settings</h2>
+            <h2 style="display: inline;">Game Settings</h2>
         </div>
         <div class="modal-body">
             <table class="settingsTable" cellpadding="3">
@@ -157,6 +156,78 @@
                         </select>
                     </td>
                 </tr>
+            </table>
+            <div class="modal-header">
+                <h3 style="display: inline;">Hint Types</h3>
+            </div>
+            <table>
+            <tr>
+                <td>
+                    Next Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_next" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Random Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_random" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    Choice of Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_choice" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    Next Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_clue_next" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Random Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_clue_random" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    Choice of Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_choice" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>-->
+
 
             </table>
         </div>

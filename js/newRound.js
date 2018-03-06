@@ -132,12 +132,11 @@ function NewRoundReroll(reroll) {
     // Based on the difficulty mode, provide free hints.
     var difficultyDropdown = document.getElementById("difficulty_dropdown");
     var difficultyMode = difficultyDropdown.options[difficultyDropdown.selectedIndex].value;
-    var bonusHintAvailable = true;
     if (difficultyMode < 2) {
-        bonusHintAvailable = NewHintByMode(0); // Easy and Medium get asterisks for free
+        NewHintByMode(0); // Easy and Medium get asterisks for free
     }
-    if (difficultyMode < 1 && bonusHintAvailable) {
-        NewHint();  // Easy also gets a free hint, unless it they already got a built-in one.
+    if (difficultyMode < 1) {
+        NewHint();  // Easy also gets a free hint
     }
 
     UpdateRemainder(0, answerCount);
