@@ -20,7 +20,7 @@
         }*/
     </style>
 </head>
-<body onload="MemorizerSetup();">
+<body onload="MemorizerSetup();" onresize="UpdateDisplay()">
     <script src="js/memObjects.js"></script>
     <script src="js/memUtils.js"></script>
     <script src="js/memCookies.js"></script>
@@ -37,29 +37,29 @@
 
             <!-- Input Answers -->
             <td>
-                <input id="answer_input" type="text" value="" style="width:200px" oninput="CheckAnswer()" onkeypress="return NoEnter()" />
+                <input id="answer_input" type="text" class="main-row" value="" style="width:200px" oninput="CheckAnswer()" onkeypress="return NoEnter()" />
                 <!-- oninput="CheckAnswerWix(event)" onpropertychange="CheckAnswerYaldex()" onchange="CheckAnswerYaldex()" -->
             </td>
 
 
             <!-- Buttons -->
             <td>
-                <input name="add_hint" type="Button" value="Hint" style="width:60px" onclick="NewHint()" />
+                <input name="add_hint" type="Button" class="main-row main-button" value="Hint" style="width:70px" onclick="NewHint()" />
             </td>
             <!-- Topics Dropdown -->
             <td align="left">
-                <select id="topic_dropdown" style="width:200px" onchange="TopicChange()">
+                <select id="topic_dropdown" class="main-row" style="width:200px" onchange="TopicChange()">
                     <option value=-1>Select Topic</option>
                 </select>
             </td>
             <td>
-                <input name="solve_all" type="Button" value="Solve" style="width:60px" onclick="SolveAll()" />
+                <input name="solve_all" type="Button" class="main-row main-button" value="Solve" style="width:70px" onclick="SolveAll()" />
             </td>
             <td>
-                <input name="new_round" type="Button" value="New" style="width:60px" onclick="NewRound()" />
+                <input name="new_round" type="Button" class="main-row main-button" value="New" style="width:70px" onclick="NewRound()" />
             </td>
             <td>
-                <input name="setting_btn" type="Button" value="Settings" style="width:60px" onclick="OpenSettings()" />
+                <input name="setting_btn" type="Button" class="main-row main-button" value="Settings" style="width:70px" onclick="OpenSettings()" />
             </td>
         </tr>
     </table>

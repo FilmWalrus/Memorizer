@@ -149,6 +149,7 @@ function NewHintByMode(hintMode) {
                 var allLettersRevealed = (currentItem.dText.search("[*]") < 0);
                 if (allLettersRevealed) {
                     currentItem.solved = true;
+                    currentItem.earned = false;
                 }
 
 

@@ -24,6 +24,7 @@
                     if (CompareTexts(userText, currentAnswer)) {
                         // Correct answer entered
                         answerArray[k].iList[j].solved = true;
+                        answerArray[k].iList[j].earned = true;
                         answerArray[k].iList[j].dText = spellingVariants[0];
 
                         updateNeeded = true;
@@ -98,8 +99,12 @@ function SolveAll() {
         // Loop through the items in this topic and set them all to solved
         var missingItem = 0;
         for (var j = 0; j < answerArray[k].iList.length; j++) {
-            answerArray[k].iList[j].dText = answerArray[k].iList[j].aText.split("|")[0];
-            answerArray[k].iList[j].solved = true;
+            var currentAnswer = answerArray[k].iList[j];
+            currentAnswer.dText = answerArray[k].iList[j].aText.split("|")[0];
+            if (!currentAnswer.solved) {
+                currentAnswer.solved = true;
+                currentAnswer.earned = false;
+            }
         }
     }
 

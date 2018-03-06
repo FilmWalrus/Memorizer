@@ -81,7 +81,11 @@
         // Loop through the columns (categories)
         for (var j = 0; j < answerArray.length; j++) {
 
-            displayText = displayText + "<td>";
+            
+
+            var clueClass = 0;
+
+            var clueText = "";
 
             if (k < answerArray[j].iList.length) {
 
@@ -89,10 +93,15 @@
 
                 if (currentItem.solved) {
                     // Display solved text
-                    displayText = displayText + currentItem.dText.fontcolor("green");
+                    clueText = clueText + currentItem.dText; //.fontcolor("green");
+                    if (currentItem.earned) {
+                        clueClass = 1;
+                    } else {
+                        clueClass = 2;
+                    }
                 } else {
                     // Display unsolved text
-                    displayText = displayText + currentItem.dText;
+                    clueText = clueText + currentItem.dText;
 
                     if (currentItem.cluesOn()) {
                         var clueArray = new Array();
@@ -101,13 +110,21 @@
                                 clueArray.push(currentItem.clues[i].cText);
                             }
                         }
-                        displayText = displayText + CreateParenthetical(clueArray);
+                        clueText = clueText + CreateParenthetical(clueArray);
                     }
 
                 }
             }
 
-            displayText = displayText + "</td>";
+            if (clueClass == 0) { // Not yet solved
+                displayText = displayText + "<td>";
+            } else if (clueClass == 1) { // Solved through hard work (show as green)
+                displayText = displayText + "<td style=\"background: #98FB98;\">";
+            } else if (clueClass == 2) { // Solved through hints (show as red)
+                displayText = displayText + "<td style=\"background: #CD5C5C; color: white;\">";
+            }
+
+            displayText = displayText + clueText + "</td>";
         }
         displayText = displayText + "</tr>";
     }

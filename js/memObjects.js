@@ -9,6 +9,7 @@ function ItemObj(iList) {
     this.aText = iList[0];
     this.dText = "?";
     this.solved = false;
+    this.earned = false;
     this.clues = new Array();
 
     // Fill in clues

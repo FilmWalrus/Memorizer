@@ -97,17 +97,21 @@ function ColorCodeTopics(toggleMode) {
         var topicIndex = topicDropdown.options[i].value;
         if (topicIndex < 0) {
             topicDropdown.options[i].style.background = "white";
+            topicDropdown.options[i].style.color = "black ";
             if (toggleMode) {
                 topicDropdown.options[i].text = "Toggle Topic On/Off";
             } else {
                 topicDropdown.options[i].text = "Select Topic";
             }
-        } else if (!toggleMode){
+        }else if (!toggleMode) {
             topicDropdown.options[i].style.background = "white";
+            topicDropdown.options[i].style.color = "black ";
         } else if (deckArray[topicIndex].active) {
             topicDropdown.options[i].style.background = "palegreen";
+            topicDropdown.options[i].style.color = "black ";
         } else {
             topicDropdown.options[i].style.background = "indianred ";
+            topicDropdown.options[i].style.color = "white ";
         }
     }
 }
