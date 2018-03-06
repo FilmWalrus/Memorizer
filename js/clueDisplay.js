@@ -24,11 +24,11 @@
         x = w.innerWidth || e.clientWidth || g.clientWidth,
         y = w.innerHeight || e.clientHeight || g.clientHeight;
     var mainHeadHeight = document.getElementById('mainSettings').offsetHeight;
-    var tableHeight = y - mainHeadHeight - 50;
-    var tableStyle = "<table id=\"clueTable\" style=\"";
+    var tableHeight = y - mainHeadHeight - 45;
+    var tableStyle = "<table id=\"clueTable\" class=\"clue-table\" style=\"";
     tableStyle = tableStyle + "display: block;";
     tableStyle = tableStyle + "max-height: " + tableHeight + "px;";
-    tableStyle = tableStyle + "overflow-y:scroll"
+    //tableStyle = tableStyle + "overflow-y:scroll"
     //tableStyle = tableStyle + "max-width: " + x + "px;";
     //tableStyle = tableStyle + "overflow-x:scroll"
     tableStyle = tableStyle + "\">";
@@ -42,15 +42,14 @@
     ////////////////////////
     // Display the labels //
     ////////////////////////
-    displayText = displayText + "<thead>";
     displayText = displayText + "<tr>";
     for (var j = 0; j < answerArray.length; j++) {
         // Topic label
-        displayText = displayText + "<td>";
+        displayText = displayText + "<th>";
 
         var labelItem = answerArray[j].labels;
         //document.getElementById("demo").innerHTML = "Debug Msg: " + debug_text;
-        displayText = displayText + labelItem.aText.fontcolor("red");
+        displayText = displayText + labelItem.aText.fontcolor("white");
 
 
         // Clue labels
@@ -61,13 +60,12 @@
                     clueArray.push(labelItem.clues[i].cText);
                 }
             }
-            displayText = displayText + CreateParenthetical(clueArray).fontcolor("red");
+            displayText = displayText + CreateParenthetical(clueArray).fontcolor("white");
         }
 
-        displayText = displayText + "</td>";
+        displayText = displayText + "</th>";
     }
     displayText = displayText + "</tr>";
-    displayText = displayText + "</thead>";
 
     ///////////////////////
     // Display the clues //
@@ -83,7 +81,8 @@
         // Loop through the columns (categories)
         for (var j = 0; j < answerArray.length; j++) {
 
-            displayText = displayText + "<td>";
+            var clueClass = 0;
+            var clueText = "";
 
             if (k < answerArray[j].iList.length) {
 
@@ -91,10 +90,15 @@
 
                 if (currentItem.solved) {
                     // Display solved text
-                    displayText = displayText + currentItem.dText.fontcolor("green");
+                    clueText = clueText + currentItem.dText; //.fontcolor("green");
+                    if (currentItem.earned) {
+                        clueClass = 1;
+                    } else {
+                        clueClass = 2;
+                    }
                 } else {
                     // Display unsolved text
-                    displayText = displayText + currentItem.dText;
+                    clueText = clueText + currentItem.dText;
 
                     if (currentItem.cluesOn()) {
                         var clueArray = new Array();
@@ -103,17 +107,37 @@
                                 clueArray.push(currentItem.clues[i].cText);
                             }
                         }
-                        displayText = displayText + CreateParenthetical(clueArray);
+                        clueText = clueText + CreateParenthetical(clueArray);
                     }
 
                 }
             }
 
-            displayText = displayText + "</td>";
+            if (clueClass == 0) {
+                // Not yet solved
+                displayText = displayText + "<td>";
+            } else if (clueClass == 1) {
+                // Solved through hard work (show as green)
+                if (k % 2 == 0) {
+                    displayText = displayText + "<td style=\"background: #98FB98;\">";
+                } else {
+                    displayText = displayText + "<td style=\"background: #66CDAA;\">";
+                }
+            } else if (clueClass == 2) {
+                // Solved through hints (show as red)
+                if (k % 2 == 0) {
+                    displayText = displayText + "<td style=\"background: #CD5C5C; color: white;\">";
+                } else {
+                    displayText = displayText + "<td style=\"background: #B22222; color: white;\">";
+                }
+                
+            }
+
+            displayText = displayText + clueText + "</td>";
         }
         displayText = displayText + "</tr>";
     }
-    displayText = displayText + "</tbody>";
+    displayText = displayText + "</tbody> <tfoot> </tfoot>";
     displayText = displayText + "</table>";
 
     //var full_text = "Clue(s):<br />" + displayText;
@@ -129,9 +153,12 @@
 }
 
 function UpdateCombo() {
+    // Update the display for the player's current combo
+    // The combo is the number of answers right in a row without taking a hint
     document.getElementById("Combo").innerHTML = "Combo: " + comboScore;
 }
 
 function UpdateRemainder(rightAnswers, totalAnswers) {
+    // Update the display for the number of answers right out of the number of answers total
     document.getElementById("answers_remaining").innerHTML = rightAnswers + " of " + totalAnswers;
 }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Memorizer</title>
     <link href="css/default.css" rel="stylesheet" />
+    <link href="css/settingsModal.css" rel="stylesheet" />
 
     <style type="text/css">
         input, select {
@@ -19,106 +20,238 @@
         }*/
     </style>
 </head>
-<body onload="MemorizerSetup();">
+<body onload="MemorizerSetup();" onresize="UpdateDisplay()">
     <script src="js/memObjects.js"></script>
     <script src="js/memUtils.js"></script>
     <script src="js/memCookies.js"></script>
     <script src="js/memHints.js"></script>
     <script src="js/clueDisplay.js"></script>
+    <script src="js/memSettings.js"></script>
     <script src="js/memStartup.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/checkAnswers.js"></script>
+    <script src="js/newRound.js"></script>
 
-    <table id="mainSettings" cellpadding="3">
-        <!-- Top level labels -->
-        <tr><td>Topic:</td><td>Count:</td><td>Letter:</td><td>Difficulty:</td><td>Hint Style:</td></tr>
-
-        <tr>
-            <!-- Topics Dropdown -->
-            <td align="left">
-                <select id="topic_dropdown" style="width:200px" onchange="TopicChange()">
-                    <option value=-1>Select Topic</option>
-                </select>
-            </td>
-
-
-            <!-- Count Dropdown -->
-            <td align="left">
-                <select id="count_dropdown" style="width:60px" onchange="CountChange()">
-                    <option value=1> 1</option>
-                    <option value=5> 5</option>
-                    <option value=10> 10</option>
-                    <option value=0> All</option>
-                    <option value=-1> 1 Set</option>
-                    <option value=-2> 2 Sets</option>
-                    <option value=-3> 3 Sets</option>
-                    <option value=-4> 4 Sets</option>
-                    <option value=-5> 5 Sets</option>
-                    <option value=-6> 6 Sets</option>
-                    <option value=-7> 7 Sets</option>
-                    <option value=-8> 8 Sets</option>
-                </select>
-            </td>
-
-            <!-- Letter Textbox -->
-            <td align="left">
-                <input id="letter_option" type="text" value="" style="width:60px" onchange="NewRound()" onkeypress="return NoEnter()" />
-            </td>
-
-            <!-- Difficulty Dropdown -->
-            <td align="left">
-                <select id="difficulty_dropdown" style="width:60px" onchange="NewRound()">
-                    <option value=0> Easy</option>
-                    <option value=1> Medium</option>
-                    <option value=2> Hard</option>
-                </select>
-            </td>
-
-            <!-- Hint Mode Dropdown -->
-            <td align="left">
-                <select id="hint_dropdown" style="width:120px" onchange="ResetCursor()">
-                    <option value=0> Letter - Ordered</option>
-                    <option value=1> Letter - Random</option>
-                    <option value=2> Clue - Ordered</option>
-                    <option value=3> Clue - Random</option>
-                    <option value=4> Either - Ordered</option>
-                    <option value=5> Either - Random</option>
-                </select>
-            </td>
-
-            <!-- Debug Area -->
-            <td align="left">
-                <p id="demo"></p>
-            </td>
-
-        </tr>
+    <table id="mainSettings" class="main-table">
+        <!--cellpadding="3"-->
         <tr>
 
             <!-- Input Answers -->
             <td>
-                <input id="answer_input" type="text" value="" style="width:200px" oninput="CheckAnswer()" onkeypress="return NoEnter()" />
+                <input id="answer_input" type="text" class="main-row" value="" style="width:200px" oninput="CheckAnswer()" onkeypress="return NoEnter()" />
                 <!-- oninput="CheckAnswerWix(event)" onpropertychange="CheckAnswerYaldex()" onchange="CheckAnswerYaldex()" -->
             </td>
 
 
             <!-- Buttons -->
             <td>
-                <input name="show_hint" type="Button" value="Hint" style="width:60px" onclick="NewHint()" />
+                <input name="add_hint" type="Button" class="main-row main-button" value="Hint" style="width:70px" onclick="NewHint()" />
+            </td>
+            <!-- Topics Dropdown -->
+            <td align="left">
+                <select id="topic_dropdown" class="main-row" style="width:200px" onchange="TopicChange()">
+                    <option value=-1>Select Topic</option>
+                </select>
             </td>
             <td>
-                <input name="solve_all" type="Button" value="Solve" style="width:60px" onclick="SolveAll()" />
+                <input name="solve_all" type="Button" class="main-row main-button" value="Solve" style="width:70px" onclick="SolveAll()" />
             </td>
             <td>
-                <input name="draw_cards" type="Button" value="New" style="width:60px" onclick="NewRound()" />
+                <input name="new_round" type="Button" class="main-row main-button" value="New" style="width:70px" onclick="NewRound()" />
             </td>
             <td>
-                <p id="answers_remaining"></p>
-            </td>
-            <td>
-                <p id="Combo">Combo: 0</p>
+                <input name="setting_btn" type="Button" class="main-row main-button" value="Settings" style="width:70px" onclick="OpenSettings()" />
             </td>
         </tr>
     </table>
 
-    <p id="display_area">Clue(s): </p><br />
+    <table class="score-bar">
+        <tr>
+            <td id="answers_remaining" style="width:100px"></td>
+            <td id="Combo" style="width:100px">Combo: 0</td>
+            <td id="demo" style="width:464px"></td>
+        </tr>
+    </table>
+
+    <!--<div class="score-bar">
+            <div id="answers_remaining" style="width:100px"></div>
+            <div id="Combo" style="width:100px">Combo: 0</div>
+            <div id="demo" style="width:440px"></div>
+    </div>-->
+
+    <div id="display_area" style="overflow-x:auto; overflow-y:auto;">
+        Clue(s):
+    </div>
 </body>
+
+
 </html>
+
+<!-- The Modal -->
+<div id="settings_modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 style="display: inline;">Game Settings</h2>
+        </div>
+        <div class="modal-body">
+            <table class="settingsTable" cellpadding="3">
+                <tr>
+                    <td>
+                        Count:
+                    </td>
+                    <td>
+                        <!-- Count Dropdown -->
+                        <select id="count_dropdown" style="width:120px" onchange="CountChange()">
+                            <option value=1> 1</option>
+                            <option value=5> 5</option>
+                            <option value=10> 10</option>
+                            <option value=0> All</option>
+                            <option value=-1> 1 Set</option>
+                            <option value=-2> 2 Sets</option>
+                            <option value=-3> 3 Sets</option>
+                            <option value=-4> 4 Sets</option>
+                            <option value=-5> 5 Sets</option>
+                            <option value=-6> 6 Sets</option>
+                            <option value=-7> 7 Sets</option>
+                            <option value=-8> 8 Sets</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Difficulty:
+                    </td>
+                    <td>
+                        <!-- Difficulty Dropdown -->
+                        <select id="difficulty_dropdown" style="width:120px" onchange="NewRound()">
+                            <option value=0> Easy</option>
+                            <option value=1> Medium</option>
+                            <option value=2> Hard</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Letter:
+                    </td>
+                    <td>
+                        <!-- Letter Textbox -->
+                        <input id="letter_option" type="text" value="" style="width:120px" onchange="NewRound()" onkeypress="return NoEnter()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hint Style:
+                    </td>
+                    <td>
+                        <!-- Hint Style Dropdown -->
+                        <select id="hint_dropdown" style="width:120px" onchange="ResetCursor()">
+                            <option value=0> Letter - Ordered</option>
+                            <option value=1> Letter - Random</option>
+                            <option value=2> Clue - Ordered</option>
+                            <option value=3> Clue - Random</option>
+                            <option value=4> Either - Ordered</option>
+                            <option value=5> Either - Random</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-header">
+                <h3 style="display: inline;">Hint Types</h3>
+            </div>
+            <table>
+            <tr>
+                <td>
+                    Next Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_next" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Random Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_random" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    Choice of Letter:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_choice" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    Next Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_clue_next" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Random Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_clue_random" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    Choice of Clue:
+                </td>
+                <td align="center">
+                    <label class="switch">
+                        <input id="hint_letter_choice" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </td>
+            </tr>-->
+
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    //// Get the <span> element that closes the modal
+    //var span = document.getElementsByClassName("close")[0];
+
+    //// When the user clicks on <span> (x), close the modal
+    //span.onclick = function () {
+    //    var modal = document.getElementById('settings_modal');
+    //    modal.style.display = "none";
+    //}
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        var modal = document.getElementById('settings_modal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

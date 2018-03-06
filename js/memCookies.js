@@ -34,6 +34,27 @@ function getCookieNumeric(cname, defaultValue) {
     return defaultValue;
 }
 
+function saveCheckboxSettings(checkboxName, settingName) {
+    var checkbox = document.getElementById(checkboxName);
+    if (checkbox.checked) {
+        setCookie(settingName, 1);
+    } else {
+        setCookie(settingName, 0);
+    }
+}
+
+function loadCheckboxSettings(checkboxName, settingName, defaultValue) {
+
+    var settingValue = getCookieNumeric(settingName, defaultValue);
+
+    var checkbox = document.getElementById(checkboxName);
+    if (settingValue) {
+        checkbox.checked = true;
+    } else {
+        checkbox.checked = false;
+    }
+}
+
 function saveDropdownSettings(dropdownName, settingName) {
     var dropdown = document.getElementById(dropdownName);
     var settingValue = dropdown.options[dropdown.selectedIndex].value;
@@ -72,8 +93,11 @@ function saveSettings() {
     // Difficulty
     saveDropdownSettings("difficulty_dropdown", "Difficulty");
 
-    // Hint Style
-    saveDropdownSettings("hint_dropdown", "HintMode");
+    // Hint Modes
+    saveCheckboxSettings("hint_letter_next", "HintLetterNext");
+    saveCheckboxSettings("hint_letter_random", "HintLetterRandom");
+    saveCheckboxSettings("hint_clue_next", "HintClueNext");
+    saveCheckboxSettings("hint_clue_random", "HintClueRandom");
 
     // Topic preferences
     // Call these manually.
@@ -89,7 +113,12 @@ function loadSettings() {
     loadDropdownSettings("topic_dropdown", "TopicMode", 0);
     loadDropdownSettings("count_dropdown", "CountMode", -5);
     loadDropdownSettings("difficulty_dropdown", "Difficulty", 0);
-    loadDropdownSettings("hint_dropdown", "HintMode", 5);
+
+    // Hint Modes
+    loadCheckboxSettings("hint_letter_next", "HintLetterNext", 1);
+    loadCheckboxSettings("hint_letter_random", "HintLetterRandom", 1);
+    loadCheckboxSettings("hint_clue_next", "HintClueNext", 1);
+    loadCheckboxSettings("hint_clue_random", "HintClueRandom", 1);
 
     var textFilter = getCookieText("TextFilter", "");
     var letterTextbox = document.getElementById("letter_option");

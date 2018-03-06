@@ -1,0 +1,236 @@
+﻿/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-header {
+    text-align: center;
+    padding: 4px;
+    background-color: #141e5d;
+    color: white;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    position: fixed;
+    right: 0;
+    background-color: #73caff; /*#fefefe;*/
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 15px;
+    border: 1px solid #888;
+    /*width: 25%;*/ /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 1.0s;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {
+        right: -300px;
+        opacity: 0;
+    }
+
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.score-bar {
+    /*background-color: #d7f0ff;*/
+    border-spacing: 3px 0px;
+}
+
+
+
+
+
+.clue-table {
+    font-family: Myriad, Helvetica, Arial, sans-serif;
+    border-collapse: collapse;
+    /*border-bottom: 4px solid #141e5d;*/
+    /*border: 1px solid black;*/
+}
+
+    .clue-table tr:nth-child(even) {
+        background: #9dd8fc;
+        
+    }
+
+    .clue-table tr:nth-child(odd) {
+        /*background: #73caff;*/
+        background: #d7f0ff;
+    }
+
+    .clue-table th {
+        background-color: #141e5d;
+        border-left: 4px solid #141e5d;
+        border-right: 4px solid #141e5d;
+        color: white;
+        padding: 4px;
+    }
+
+    /*.clue-table tfoot {
+        background-color: #141e5d;
+        border-bottom: 4px solid #141e5d;
+    }*/
+
+    .clue-table td {
+        font-size: 14px;
+        border-left: 4px solid #141e5d;
+        border-right: 4px solid #141e5d;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .clue-table td:hover {
+        background-color: #bca1f7;
+        /*background-color: #a4d2aa;*/
+        /*font-size: larger;*/
+    }
+
+.right td {
+    background: #98FB98;
+}
+
+.wrong td {
+    background: #CD5C5C;
+}
+
+
+
+
+
+
+
+
+
+
+.main-table {
+    border-spacing: 5px 5px;
+}
+
+    /* No effect */
+    .main-table td {
+        margin: 10px 20px 10px 20px;
+    }
+
+    /* No effect */
+    .main-table > :first-child {
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    /* No effect */
+    .main-table > :last-child {
+        margin-bottom: 0 !important;
+        margin-right: 0 !important;
+    }
+
+
+
+.main-row {
+    font-family: Myriad, Helvetica, Arial, sans-serif;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: solid 1px #20538D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.main-button {
+    background: #4479BA;
+    color: white;
+    transition-duration: 0.2s;
+    user-select: none;
+}
+
+    .main-button:hover {
+        background: #356094;
+        border: solid 1px #2A4E77;
+        text-decoration: none;
+    }
+
+    .main-button:active {
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+        background: #2E5481;
+        border: solid 1px #203E5F;
+    }
+
+
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+}
+
+    .switch input {
+        display: none;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background-color: indianred;/*#ccc;*/
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        border-radius: 50%;
+        background-color: white;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: palegreen; /*#2196F3;*/
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(40px);
+    /*background-color: black;*/
+}
+
