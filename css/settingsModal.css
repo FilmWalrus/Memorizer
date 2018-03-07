@@ -78,8 +78,8 @@
 }
 
     .clue-table tr:nth-child(even) {
-        background: #9dd8fc;
-        
+        /*background: #9dd8fc;*/
+        background: #b0d0f8;
     }
 
     .clue-table tr:nth-child(odd) {
