@@ -98,23 +98,23 @@
             <table class="settingsTable" cellpadding="3">
                 <tr>
                     <td>
-                        Count:
+                        # of Items:
                     </td>
                     <td>
                         <!-- Count Dropdown -->
-                        <select id="count_dropdown" style="width:120px" onchange="CountChange()">
-                            <option value=1> 1</option>
-                            <option value=5> 5</option>
-                            <option value=10> 10</option>
-                            <option value=0> All</option>
-                            <option value=-1> 1 Set</option>
-                            <option value=-2> 2 Sets</option>
-                            <option value=-3> 3 Sets</option>
-                            <option value=-4> 4 Sets</option>
-                            <option value=-5> 5 Sets</option>
-                            <option value=-6> 6 Sets</option>
-                            <option value=-7> 7 Sets</option>
-                            <option value=-8> 8 Sets</option>
+                        <select id="count_dropdown" class="main-row" style="width:120px" onchange="CountChange()">
+                            <option value=1>1 Item</option>
+                            <option value=5>5 Items</option>
+                            <option value=10>10 Items</option>
+                            <option value=0>Full Set</option>
+                            <option value=-1>1 Random Set</option>
+                            <option value=-2>2 Random Sets</option>
+                            <option value=-3>3 Random Sets</option>
+                            <option value=-4>4 Random Sets</option>
+                            <option value=-5>5 Random Sets</option>
+                            <option value=-6>6 Random Sets</option>
+                            <option value=-7>7 Random Sets</option>
+                            <option value=-8>8 Random Sets</option>
                         </select>
                     </td>
                 </tr>
@@ -124,7 +124,7 @@
                     </td>
                     <td>
                         <!-- Difficulty Dropdown -->
-                        <select id="difficulty_dropdown" style="width:120px" onchange="NewRound()">
+                        <select id="difficulty_dropdown" class="main-row" style="width:120px" onchange="NewRound()">
                             <option value=0> Easy</option>
                             <option value=1> Medium</option>
                             <option value=2> Hard</option>
@@ -137,23 +137,7 @@
                     </td>
                     <td>
                         <!-- Letter Textbox -->
-                        <input id="letter_option" type="text" value="" style="width:120px" onchange="NewRound()" onkeypress="return NoEnter()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Hint Style:
-                    </td>
-                    <td>
-                        <!-- Hint Style Dropdown -->
-                        <select id="hint_dropdown" style="width:120px" onchange="ResetCursor()">
-                            <option value=0> Letter - Ordered</option>
-                            <option value=1> Letter - Random</option>
-                            <option value=2> Clue - Ordered</option>
-                            <option value=3> Clue - Random</option>
-                            <option value=4> Either - Ordered</option>
-                            <option value=5> Either - Random</option>
-                        </select>
+                        <input id="letter_option" type="text" class="main-row" value="" style="width:120px" onchange="NewRound()" onkeypress="return NoEnter()" />
                     </td>
                 </tr>
             </table>

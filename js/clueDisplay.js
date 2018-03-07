@@ -113,7 +113,11 @@
                 }
             }
 
-            if (clueClass == 0) {
+            if (!clueText) {
+                // Blank
+                //displayText = displayText + "<td style=\"background: white;\">";
+                displayText = displayText + "<td>";
+            }else if (clueClass == 0) {
                 // Not yet solved
                 displayText = displayText + "<td>";
             } else if (clueClass == 1) {
