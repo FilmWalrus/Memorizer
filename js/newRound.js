@@ -13,7 +13,7 @@ function NewRoundReroll(reroll) {
 
     answerArray.length = 0; // Reset answer array
 
-    // Get the selected category
+    // Get the selected category (Chance change)
     var topicDropdown = document.getElementById("topic_dropdown");
     if (topicDropdown.selectedIndex < 0) {
         return;
